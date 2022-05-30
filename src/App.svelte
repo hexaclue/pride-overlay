@@ -14,19 +14,38 @@
     import Preview from "./lib/Preview.svelte";
     import { generateFlag } from "./lib/helpers/generateFlag";
     import { capitalise } from "./lib/helpers/stringHelpers";
+    import Button from "./lib/Button.svelte";
+    import { download } from "./lib/helpers/download";
+    import RadioRow from "./lib/RadioRow.svelte";
+    import { CutoutType } from "./lib/types/cutoutType";
 
     let selectedFiles: File[] = [];
     let selectedFlag: string = "pride";
     let cutoutSize: number = 90;
     let isGradient: boolean = false;
-    let resizeInwards: boolean = false;
+    let resizeInwards: boolean = true;
     let rotating: boolean = false;
     let animationLength: number = 10;
     let previewCircular: boolean = true;
     let isRotatingCounterClockwise: boolean = false;
+    let overlayOpacity: number = 100;
+    let cutoutType: CutoutType = CutoutType.CIRCLE;
+
+    let canvas: HTMLCanvasElement;
 
     $: animated = rotating;
-    // $: selectedImage: HTMLImageElement = await fileToImage(selectedFiles[0]);
+
+    $: renderOptions = {
+        cutoutSize: cutoutSize,
+        resizeInwards: resizeInwards,
+        selectedColors: flagColours[selectedFlag],
+        isGradient: isGradient,
+        isRotating: rotating,
+        animationLength: animationLength,
+        isRotatingCounterClockwise: isRotatingCounterClockwise,
+        overlayOpacity: overlayOpacity,
+        cutoutType: cutoutType,
+    };
 </script>
 
 <svelte:head>
@@ -68,10 +87,23 @@
 
     <section>
         <h2>Settings</h2>
+        <p>Cutout type</p>
+        <RadioRow
+            bind:selected={cutoutType}
+            options={[
+                { label: "Circular", value: CutoutType.CIRCLE },
+                { label: "Square", value: CutoutType.SQUARE },
+                { label: "Overlay", value: CutoutType.OVERLAY },
+            ]}
+        />
+        <br /><br />
         <p>
             Cutout size (how many % of your profile picture will remain visible)
         </p>
         <Slider bind:value={cutoutSize} />
+        <br />
+        <p>Overlay opacity</p>
+        <Slider bind:value={overlayOpacity} />
         <br />
         <h3>Painting modes</h3>
         <div class="multiple-choices">
@@ -105,6 +137,7 @@
                 max={30}
                 step={0.1}
             />
+            <br />
             <Switch bind:checked={isRotatingCounterClockwise}
                 >Counter-clockwise</Switch
             >
@@ -114,19 +147,58 @@
     <section>
         <h2>Preview</h2>
         <Preview
+            options={renderOptions}
             selectedFile={selectedFiles[0]}
-            selectedColors={flagColours[selectedFlag]}
-            isRotating={rotating}
-            {cutoutSize}
-            {resizeInwards}
             {previewCircular}
-            {isGradient}
-            {animationLength}
-            {isRotatingCounterClockwise}
+            bind:canvas
         />
+        <!-- options={{
+            cutoutSize: cutoutSize,
+            resizeInwards: resizeInwards,
+            selectedColors: flagColours[selectedFlag],
+            previewCircular: previewCircular,
+            isGradient: isGradient,
+            isRotating: rotating,
+            animationLength: animationLength,
+            isRotatingCounterClockwise: isRotatingCounterClockwise,
+            overlayOpacity: overlayOpacity,
+            selectedFile: selectedFiles[0],
+        }} -->
+        <!-- selectedFile={selectedFiles[0]}
+            options={{
+                selectedFile: selectedFiles[0],
+                selectedFlag: flagColours[selectedFlag],
+                cutoutSize: cutoutSize,
+                isGradient: isGradient,
+                resizeInwards: resizeInwards,
+                rotating: rotating,
+                animationLength,
+                isRotatingCounterClockwise,
+                overlayOpacity,
+            }}
+           selectedColors={flagColours[selectedFlag]}
+           isRotating={rotating}
+           {cutoutSize}
+           {resizeInwards}
+           {previewCircular}
+           {isGradient}
+           {animationLength}
+           {isRotatingCounterClockwise}
+           {overlayOpacity} -->
         <br /><br />
         <Switch bind:checked={previewCircular}>Circular preview</Switch>
     </section>
+
+    <section>
+        <h2>Export</h2>
+        <Button on:click={(_) => download(selectedFiles[0], renderOptions)}
+            >Download!</Button
+        >
+    </section>
+
+    <hr />
+
+    <footer>Yooo</footer>
 </main>
 
 <style>
@@ -178,21 +250,16 @@
         margin: 2rem 0;
     }
 
-    section {
+    section,
+    footer {
         flex-grow: 0;
         width: Calc(var(--page-size) + 0.01px); /* because flex-wrap */
         padding: 1.2rem;
         box-sizing: border-box;
-        /*border: 1px solid red;*/
         margin: 0 auto;
     }
 
     .flexysmexy {
-        /* display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%; */
         display: grid;
         overflow-x: hidden;
         grid-template-columns: 100% 0;
