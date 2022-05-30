@@ -33,59 +33,6 @@
     }
 </script>
 
-<!-- <div class="select-sim" id="select-color">
-    <div class="options">
-        <div class="option">
-            <input type="radio" name="color" value="" id="color-" checked />
-            <label for="color-">
-                <img src="http://placehold.it/22/ffffff/ffffff" alt="" /> Select
-                an option
-            </label>
-        </div>
-        <div class="option">
-            <input type="radio" name="color" value="red" id="color-red" />
-            <label for="color-red">
-                <img src="http://placehold.it/22/ff0000/ffffff" alt="" /> Red
-            </label>
-        </div>
-        <div class="option">
-            <input type="radio" name="color" value="green" id="color-green" />
-            <label for="color-green">
-                <img src="http://placehold.it/22/00ff00/ffffff" alt="" /> Green
-            </label>
-        </div>
-        <div class="option">
-            <input type="radio" name="color" value="blue" id="color-blue" />
-            <label for="color-blue">
-                <img src="http://placehold.it/22/0000ff/ffffff" alt="" /> Blue
-            </label>
-        </div>
-        <div class="option">
-            <input type="radio" name="color" value="yellow" id="color-yellow" />
-            <label for="color-yellow">
-                <img src="http://placehold.it/22/ffff00/ffffff" alt="" /> Yellow
-            </label>
-        </div>
-        <div class="option">
-            <input type="radio" name="color" value="pink" id="color-pink" />
-            <label for="color-pink">
-                <img src="http://placehold.it/22/ff00ff/ffffff" alt="" /> Pink
-            </label>
-        </div>
-        <div class="option">
-            <input
-                type="radio"
-                name="color"
-                value="turquoise"
-                id="color-turquoise"
-            />
-            <label for="color-turquoise">
-                <img src="http://placehold.it/22/00ffff/ffffff" alt="" /> Turquoise
-            </label>
-        </div>
-    </div>
-</div> -->
-
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div
     class="select-sim"

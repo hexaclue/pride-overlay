@@ -1,5 +1,4 @@
 <script lang="ts">
-    // let fi: HTMLInputElement = document.querySelector('input[type="file"]');
     let fi: HTMLInputElement;
     export let selectedFiles: File[] | undefined = [];
 

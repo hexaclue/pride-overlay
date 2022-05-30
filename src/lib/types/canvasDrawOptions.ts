@@ -9,7 +9,5 @@ export type CanvasDrawOptions = {
     animationLength: number;
     isRotatingCounterClockwise: boolean;
     overlayOpacity: number;
-    // cutoutType: number;
     cutoutType: CutoutType;
-    // selectedFile: File;
 }

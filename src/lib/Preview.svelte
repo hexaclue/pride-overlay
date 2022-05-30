@@ -11,17 +11,6 @@
     export let selectedFile: File;
     export let previewCircular: boolean;
 
-    // export let cutoutSize: number;
-    // export let resizeInwards: boolean;
-    // export let selectedColors: string[];
-    // export let previewCircular: boolean;
-    // export let isGradient: boolean;
-    // export let isRotating: boolean;
-    // export let animationLength: number;
-    // export let isRotatingCounterClockwise: boolean;
-    // export let overlayOpacity: number;
-
-    // export let selectedFile: File;
     let selectedImage: HTMLImageElement;
 
     export let canvas: HTMLCanvasElement;

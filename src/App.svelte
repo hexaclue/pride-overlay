@@ -152,39 +152,6 @@
             {previewCircular}
             bind:canvas
         />
-        <!-- options={{
-            cutoutSize: cutoutSize,
-            resizeInwards: resizeInwards,
-            selectedColors: flagColours[selectedFlag],
-            previewCircular: previewCircular,
-            isGradient: isGradient,
-            isRotating: rotating,
-            animationLength: animationLength,
-            isRotatingCounterClockwise: isRotatingCounterClockwise,
-            overlayOpacity: overlayOpacity,
-            selectedFile: selectedFiles[0],
-        }} -->
-        <!-- selectedFile={selectedFiles[0]}
-            options={{
-                selectedFile: selectedFiles[0],
-                selectedFlag: flagColours[selectedFlag],
-                cutoutSize: cutoutSize,
-                isGradient: isGradient,
-                resizeInwards: resizeInwards,
-                rotating: rotating,
-                animationLength,
-                isRotatingCounterClockwise,
-                overlayOpacity,
-            }}
-           selectedColors={flagColours[selectedFlag]}
-           isRotating={rotating}
-           {cutoutSize}
-           {resizeInwards}
-           {previewCircular}
-           {isGradient}
-           {animationLength}
-           {isRotatingCounterClockwise}
-           {overlayOpacity} -->
         <br /><br />
         <Switch bind:checked={previewCircular}>Circular preview</Switch>
     </section>

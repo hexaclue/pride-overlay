@@ -13,7 +13,6 @@
         value={option.value}
         bind:group
     />
-    <!-- <img src={option.icon} alt="" /> -->
     <span>
         {option.label}
     </span>
