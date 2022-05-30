@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <path d="M 5 50 L 35 50 l -10 -10 M 35 50 l -10 10" fill="none" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path style="transform-origin: 50px 50px;" transform="rotate(90)" d="M 5 50 L 35 50 l -10 -10 M 35 50 l -10 10" fill="none" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path style="transform-origin: 50px 50px;" transform="rotate(180)" d="M 5 50 L 35 50 l -10 -10 M 35 50 l -10 10" fill="none" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path style="transform-origin: 50px 50px;" transform="rotate(270)" d="M 5 50 L 35 50 l -10 -10 M 35 50 l -10 10" fill="none" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- <rect x="38" y="38" width="24" height="24" fill="black"/> -->
+</svg>
