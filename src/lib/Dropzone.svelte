@@ -1,6 +1,7 @@
 <script lang="ts">
     let fi: HTMLInputElement;
     export let selectedFiles: File[] | undefined = [];
+    export let filter: string = "*/*";
 
     let isDraggingOver = false;
 
@@ -80,7 +81,7 @@
     on:drop={handleDrop}
     class:draggingover={isDraggingOver}
 >
-    <input type="file" bind:this={fi} on:input={handleInput} />
+    <input type="file" bind:this={fi} on:input={handleInput} accept={filter} />
     <span>Drag a file here or click to pick a file</span>
 </label>
 

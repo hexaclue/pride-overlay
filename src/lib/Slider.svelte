@@ -88,7 +88,7 @@
     }
     input[type="range"].hover {
         --slider-thumb-bg: hsl(0, 0%, 95%);
-        --slider-thumb-size: 3rem;
+        --slider-thumb-size: 2.5rem;
         --thumb-color: var(--primary-color);
     }
     input[type="range"].active {

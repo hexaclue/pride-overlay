@@ -1,11 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { degToRad } from "./helpers/degToRad";
     import { drawToCanvas } from "./helpers/drawToCanvas";
     import { fileToImage } from "./helpers/fileToImage";
-    import { isImageOk } from "./helpers/isImageOk";
     import type { CanvasDrawOptions } from "./types/canvasDrawOptions";
-    import { CutoutType } from "./types/cutoutType";
 
     export let options: CanvasDrawOptions;
     export let selectedFile: File;
@@ -28,12 +25,25 @@
     }
 
     function fixRes() {
-        let smallest = 0;
-        smallest = selectedImage.naturalWidth;
-        smallest =
-            selectedImage.naturalHeight < smallest
-                ? selectedImage.naturalHeight
-                : smallest;
+        // let smallest = 0;
+        // smallest = selectedImage.naturalWidth;
+        // smallest =
+        //     selectedImage.naturalHeight < smallest
+        //         ? selectedImage.naturalHeight
+        //         : smallest;
+
+        // canvas.width = 100;
+        // canvas.height = 100;
+
+        // canvas.removeAttribute("width");
+        // canvas.removeAttribute("height");
+        // canvas.width = undefined;
+        // canvas.height = undefined;
+
+        setTimeout(() => {
+            canvas.width = canvas.getBoundingClientRect().width;
+            canvas.height = canvas.getBoundingClientRect().height;
+        }, 100);
 
         // canvas.width = smallest;
         // canvas.height = smallest;
@@ -60,10 +70,17 @@
     }
 </script>
 
+<svelte:window on:resize={fixRes} />
+
 <canvas bind:this={canvas} class:isCircular={previewCircular} />
 
 <style>
     canvas {
+        /* width: min(Calc(95vw - 2.4rem), 20rem); */
+        /* height: min(Calc(95vw - 2.4rem), 20rem); */
+        /* width: min(var(--page-size), 20rem); */
+        /* height: min(var(--page-size), 20rem); */
+
         width: 20rem;
         height: 20rem;
         /* background: black; */

@@ -46,6 +46,8 @@
         overlayOpacity: overlayOpacity,
         cutoutType: cutoutType,
     };
+
+    let isRendering: boolean = false;
 </script>
 
 <svelte:head>
@@ -63,7 +65,7 @@
         <h2>File input</h2>
         <div class="flexysmexy" class:expanded={selectedFiles.length > 0}>
             <div>
-                <Dropzone bind:selectedFiles />
+                <Dropzone bind:selectedFiles filter="image/*" />
             </div>
             <div>
                 <FileStats {selectedFiles} />
@@ -158,9 +160,25 @@
 
     <section>
         <h2>Export</h2>
-        <Button on:click={(_) => download(selectedFiles[0], renderOptions)}
-            >Download!</Button
-        >
+        {#if selectedFiles.length > 0}
+            {#if !isRendering}
+                {#if animated}Animated GIFs take quite a long time to process!
+                    (especially if you are on a mobile device)<br /><br />{/if}
+                <Button
+                    on:click={() => {
+                        isRendering = true;
+                        setTimeout(async () => {
+                            await download(selectedFiles[0], renderOptions);
+                            isRendering = false;
+                        }, 50);
+                    }}>Download!</Button
+                >
+            {:else}
+                Currently rendering your image...
+            {/if}
+        {:else}
+            Exporting is not possible because there is no file selected.
+        {/if}
     </section>
 
     <hr />
@@ -266,7 +284,8 @@
     }
     @media screen and (max-width: 60rem) {
         :root {
-            --page-size: 97.5vw;
+            /* --page-size: 97.5vw; */
+            --page-size: Calc(100vw - (97.5vw - 97.5%));
         }
     }
 
