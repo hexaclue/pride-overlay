@@ -18,8 +18,8 @@ export function download(selectedFile: File, options: CanvasDrawOptions): Promis
         if (options.isRotating) {
             let fps = 30;
 
-            canvas.width = 256;
-            canvas.height = 256;
+            canvas.width = Math.min(selectedImage.width, 256);
+            canvas.height = Math.min(selectedImage.height, 256);
 
             for (let i = 0; i < fps * options.animationLength; i++) {
                 drawToCanvas(canvas, ctx, selectedImage, options, i / fps);
@@ -34,8 +34,8 @@ export function download(selectedFile: File, options: CanvasDrawOptions): Promis
             }
 
             gifshot.createGIF({
-                width: Math.min(selectedImage.width, 256),
-                height: Math.min(selectedImage.height, 256),
+                gifWidth: canvas.width,
+                gifHeight: canvas.height,
                 images: frames,
                 interval: 1 / fps,
                 progressCallback: (captureProgress: number) => {
@@ -46,7 +46,7 @@ export function download(selectedFile: File, options: CanvasDrawOptions): Promis
                 if (!obj.error) {
                     let image = obj.image;
                     const link = document.createElement('a');
-                    link.download = "lpppog_ani" + Date.now() + ".png";
+                    link.download = "lpppog_ani" + Date.now() + ".gif";
                     link.href = image;
                     link.click();
                     resolve();

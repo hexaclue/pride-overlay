@@ -10,7 +10,9 @@
 
     import gradientIcon from "./assets/gradient.svg";
     import resizeInwardsIcon from "./assets/resizeInwards.svg";
+    import loadingIcon from "./assets/loading.svg";
     import rotatingIcon from "./assets/rotating.svg";
+    import appIcon from "./assets/icon.svg";
     import Preview from "./lib/Preview.svelte";
     import { generateFlag } from "./lib/helpers/generateFlag";
     import { capitalise } from "./lib/helpers/stringHelpers";
@@ -59,7 +61,9 @@
 </svelte:head>
 
 <main>
-    <h1>LGBT Profile Picture Generator</h1>
+    <header>
+        <h1>LGBT Profile Picture Overlay Generator</h1>
+    </header>
 
     <section>
         <h2>File input</h2>
@@ -174,23 +178,32 @@
                     }}>Download!</Button
                 >
             {:else}
-                Currently rendering your image...
+                Currently rendering your image...<img
+                    src={loadingIcon}
+                    class="icon"
+                    alt=""
+                />
             {/if}
         {:else}
             Exporting is not possible because there is no file selected.
         {/if}
     </section>
 
-    <hr />
-
-    <footer>Yooo</footer>
+    <footer>
+        <img src={appIcon} alt="" />
+        <div>
+            LGBT Profile Picture Overlay Generator
+            <br />by <a href="https://hihiqy1.nl">Qy</a>
+            <br />2022
+        </div>
+    </footer>
 </main>
 
 <style>
     :root {
         --page-size: 50vw;
         --bg: white;
-        --primary-color: hsl(190, 100%, 50%);
+        --primary-color: hsl(163, 100%, 45%);
         --slider-thumb-size: 2rem;
         --slider-thumb-bg: white;
         --slider-thumb-shadow: 0 0.25rem 0.5rem hsla(0, 0%, 0%, 0.25);
@@ -220,6 +233,10 @@
         margin: 0 0 0.75rem 0;
     }
 
+    :global(a) {
+        color: hsl(163, 100%, 25%);
+    }
+
     main {
         position: relative;
         width: 100%;
@@ -230,7 +247,7 @@
         justify-content: center;
     }
 
-    main > h1 {
+    main > header > h1 {
         text-align: center;
         margin: 2rem 0;
     }
@@ -277,6 +294,23 @@
         gap: 1rem 3rem;
     }
 
+    footer {
+        margin-top: 2rem;
+        border-top: 1px solid hsl(0, 0%, 40%);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+    footer > * {
+        grid-row: 1;
+    }
+    footer > img {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 0.5rem;
+    }
+
     @media screen and (max-width: 80rem) {
         :root {
             --page-size: 70vw;
@@ -304,7 +338,7 @@
 
         .flexysmexy.expanded {
             grid-template-columns: initial;
-            grid-template-rows: 100% 1fr;
+            grid-template-rows: 1fr 1fr;
         }
     }
 </style>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <defs>
+        <!-- Blur filter -->
+        <filter id="blur">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+        </filter>
+
+        <linearGradient id="gradient" x1="0" y1="0%" x2="0" y2="100%">
+            <stop offset="00%" stop-color="#e70000" />
+            <stop offset="20%" stop-color="#ff8c00" />
+            <stop offset="40%" stop-color="#ffef00" />
+            <stop offset="60%" stop-color="#00811f" />
+            <stop offset="80%" stop-color="#0044ff" />
+            <stop offset="100%" stop-color="#760089" />
+        </linearGradient>
+    </defs>
+
+    <rect width="100" height="100" fill="url(#gradient)"/>
+
+    <text x="50" y="55" font-family="Raleway" font-weight="900" font-size="45" text-anchor="middle" dominant-baseline="middle" fill="hsla(0, 0%, 0%, .75)" filter="url(#blur)">POG</text>
+    <text x="50" y="53" font-family="Raleway" font-weight="900" font-size="45" text-anchor="middle" dominant-baseline="middle" fill="white">POG</text>
+    <!-- <text x="50" y="53" font-family="Raleway" font-weight="900" font-size="45" text-anchor="middle" dominant-baseline="middle" fill="url(#gradient)">POG</text> -->
+</svg>

@@ -7,9 +7,11 @@
         background-color: hsl(0, 0%, 95%);
         padding: 0.25rem 0.5rem;
         border-radius: 0.5rem;
+        transition-duration: var(--small-element-transition-duration);
     }
     button:hover {
         --border-color: hsl(0, 0%, 85%);
+        padding: 0.5rem 1rem;
         background-color: hsl(0, 0%, 90%);
     }
     button:active {
