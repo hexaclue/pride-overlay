@@ -74,6 +74,15 @@ export const flagColours = {
         "#c3c3c3",
         "#7f7f7f",
     ],
+    demigender: [
+        "#7f7f7f",
+        "#c3c3c3",
+        "#faff74",
+        "#ffffff",
+        "#faff74",
+        "#c3c3c3",
+        "#7f7f7f",
+    ],
     genderfluid: ["#f376a0", "#ffffff", "#ad4cbf", "#000000", "#3f47b6"],
     genderqueer: ["#b67fdd", "#ffffff", "#49821e"],
     genderflux: [
@@ -86,5 +95,6 @@ export const flagColours = {
     ],
     lesbian: ["#d62900", "#ff9b55", "#ffffff", "#d462a5", "#a50062"],
     grayromantic: ["#000000", "#b2b2b2", "#ffffff", "#2da038", "#063609"],
+    graysexual: ["#740194", "#aeb1aa", "#ffffff", "#aeb1aa", "#740194"],
     omnisexual: ["#ff9ccd", "#ff53bd", "#270046", "#675ffe", "#8ca7ff"],
 };
