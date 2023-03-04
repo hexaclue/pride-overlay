@@ -1,4 +1,15 @@
 # LGBTQ+ Profile Picture Overlay Generator (LPPPOG) (POG)
-Easily turn your profile picture into an LGBTQ+ profile picture!
+<p align="center">
+  <img alt="POG Logo" height="192" src="https://hihiqy1.nl/pride/assets/icon256.png">
+</p>
 
-The site's available [here](https://hihiqy1.nl/pride/)
+<h3 align="center">
+<b>
+Easily turn your profile picture into an LGBTQ+ profile picture!
+</b>
+</h3>
+
+<br>
+
+### Demo
+The site's available [here](https://hihiqy1.nl/pride/).
