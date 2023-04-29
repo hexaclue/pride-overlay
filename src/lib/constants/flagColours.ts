@@ -200,9 +200,9 @@ export const flagColours = {
         "#8ca7ff"
     ],
     "plural": [
-        "#31BD99",
-        "#3378D6",
-        "#683DB5",
-        "#010102"
+        "#31c69e",
+        "#347dde",
+        "#6b3fbd",
+        "#000000"
     ]
 };
