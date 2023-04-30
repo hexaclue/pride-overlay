@@ -5,9 +5,7 @@
 
     let isDraggingOver = false;
 
-    function handleInput(
-        e: Event & { currentTarget: EventTarget & HTMLInputElement }
-    ) {
+    function handleInput(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
         selectedFiles = [...e.currentTarget.files];
     }
 
@@ -19,16 +17,12 @@
             e.dataTransfer.items.length > 0 &&
             ((e.dataTransfer.items.length > 1 &&
                 Array.from(input.attributes)
-                    .map((w) => w.name)
+                    .map(w => w.name)
                     .includes("multiple")) ||
                 e.dataTransfer.items.length == 1) /* &&
                 !Array.from(input.attributes).map(w => w.name).includes("multiple")*/
         ) {
-            if (
-                Array.from(e.dataTransfer.items).every((item) =>
-                    item.type.includes("image/")
-                )
-            ) {
+            if (Array.from(e.dataTransfer.items).every(item => item.type.includes("image/"))) {
                 isDraggingOver = true;
 
                 e.dataTransfer.dropEffect = "copy";
@@ -53,15 +47,11 @@
             e.dataTransfer.items.length > 0 &&
             ((e.dataTransfer.items.length > 1 &&
                 Array.from(input.attributes)
-                    .map((w) => w.name)
+                    .map(w => w.name)
                     .includes("multiple")) ||
                 e.dataTransfer.items.length == 1)
         ) {
-            if (
-                Array.from(e.dataTransfer.items).every((item) =>
-                    item.type.includes("image/")
-                )
-            ) {
+            if (Array.from(e.dataTransfer.items).every(item => item.type.includes("image/"))) {
                 isDraggingOver = false;
                 selectedFiles = [...e.dataTransfer.files];
             }
@@ -72,8 +62,8 @@
 <label
     id="dropzone"
     tabindex="0"
-    on:keydown={(event) => {
-        if (event.key == "Enter") this.click();
+    on:keydown={event => {
+        if (event.key == "Enter") event.currentTarget.click();
     }}
     role="button"
     on:dragover={handleDragOver}
@@ -81,7 +71,7 @@
     on:drop={handleDrop}
     class:draggingover={isDraggingOver}
 >
-    <input type="file" bind:this={fi} on:input={handleInput} accept={filter} />
+    <input type="file" bind:this={fi} on:input={handleInput} accept={filter} tabindex="-1" />
     <span>Drag a file here or click to pick a file</span>
 </label>
 

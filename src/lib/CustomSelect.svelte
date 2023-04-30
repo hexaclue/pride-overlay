@@ -2,17 +2,13 @@
     import CustomSelectOption from "./CustomSelectOption.svelte";
     import { isTouch } from "./helpers/isTouch";
 
-    export let options:
-        | { icon?: string; label: string; value: string }[]
-        | undefined = null;
-    export let selected: string | undefined = options
-        ? options.length
-            ? options[0].value
-            : null
-        : null;
+    export let options: { icon?: string; label: string; value: string }[] | undefined = null;
+    export let selected: string | undefined = options ? (options.length ? options[0].value : null) : null;
 
     let hovering: boolean = false;
     let disablé: boolean = false;
+
+    let optionsElement: HTMLDivElement;
 
     function mouseOver() {
         hovering = true;
@@ -31,6 +27,20 @@
             }, 50);
         }
     }
+
+    function keyDownHandler(
+        e: KeyboardEvent & {
+            currentTarget: EventTarget & HTMLDivElement;
+        }
+    ) {
+        if (e.key === "Enter") {
+            mouseOver();
+            let well: HTMLElement = optionsElement.querySelector("*");
+            well.focus();
+        } else if (e.key == "Escape") {
+            mouseOut();
+        }
+    }
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -42,15 +52,13 @@
     style={"--amount-of-items:" + (options.length > 5 ? 5 : options.length)}
     class:hover={hovering}
     on:mouseup={mouseUp}
+    tabindex="0"
+    role="combobox"
+    on:keydown={keyDownHandler}
 >
-    <div class="options">
+    <div class="options" bind:this={optionsElement}>
         {#each options as option}
-            <CustomSelectOption
-                {option}
-                bind:group={selected}
-                mainHovering={hovering}
-                disabled={!(hovering && !disablé)}
-            />
+            <CustomSelectOption {option} bind:group={selected} mainHovering={hovering} disabled={!(hovering && !disablé)} />
         {/each}
     </div>
 </div>
@@ -99,7 +107,7 @@
         height: Calc(3rem + 2px);
     }
 
-    .select-sim:hover .options {
+    .select-sim.hover .options {
         background: var(--bg);
         /*border:1px solid #ccc;
   position:absolute;*/

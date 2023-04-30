@@ -13,8 +13,8 @@
 
 <label
     tabindex="0"
-    on:keydown={(event) => {
-        if (event.key == "Enter") this.click();
+    on:keydown={event => {
+        if (event.key == "Enter") event.currentTarget.click();
     }}
     role="checkbox"
     on:mouseenter={element_mouseEnter}

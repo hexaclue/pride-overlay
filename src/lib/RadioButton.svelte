@@ -5,14 +5,16 @@
     export let group: string;
 </script>
 
-<label for={option.value} class="option">
-    <input
-        id={option.value}
-        type="radio"
-        name="type"
-        value={option.value}
-        bind:group
-    />
+<label
+    for={option.value}
+    class="option"
+    tabindex="0"
+    role="radio"
+    on:keydown={event => {
+        if (event.key == "Enter") event.currentTarget.click();
+    }}
+>
+    <input id={option.value} type="radio" name="type" value={option.value} bind:group />
     <span class="check-ind"><span class="check-ind-k" /></span>
     <span>
         {option.label}

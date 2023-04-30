@@ -6,15 +6,18 @@
 </script>
 
 <div class="option" class:main-hovering={mainHovering}>
-    <input
-        id={option.value}
-        type="radio"
-        name="color"
-        value={option.value}
-        bind:group
-        {disabled}
-    />
-    <label for={option.value}>
+    <input id={option.value} type="radio" name="color" value={option.value} bind:group {disabled} />
+    <label
+        for={option.value}
+        tabindex="0"
+        role="option"
+        on:keydown={e => {
+            console.info("itemclick");
+            if (e.key === "Enter") {
+                e.currentTarget.click();
+            }
+        }}
+    >
         <img src={option.icon} alt="" />
         {option.label}
     </label>
