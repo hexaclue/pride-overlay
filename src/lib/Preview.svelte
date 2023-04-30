@@ -76,13 +76,10 @@
 
 <style>
     canvas {
-        /* width: min(Calc(95vw - 2.4rem), 20rem); */
-        /* height: min(Calc(95vw - 2.4rem), 20rem); */
-        /* width: min(var(--page-size), 20rem); */
-        /* height: min(var(--page-size), 20rem); */
+        width: min(20rem, var(--page-size));
+        /* height: min(20rem, var(--page-size)); */
+        aspect-ratio: 1;
 
-        width: 20rem;
-        height: 20rem;
         /* background: black; */
         transition: border-radius var(--big-element-transition-duration);
     }

@@ -12,7 +12,6 @@
     import resizeInwardsIcon from "./assets/resizeInwards.svg";
     import loadingIcon from "./assets/loading.svg";
     import rotatingIcon from "./assets/rotating.svg";
-    import appIcon from "./assets/icon.svg";
     import Preview from "./lib/Preview.svelte";
     import { generateFlag } from "./lib/helpers/generateFlag";
     import { capitalise } from "./lib/helpers/stringHelpers";
@@ -20,6 +19,7 @@
     import { download } from "./lib/helpers/download";
     import RadioRow from "./lib/RadioRow.svelte";
     import { CutoutType } from "./lib/types/cutoutType";
+    import Footer from "./lib/Footer.svelte";
 
     let selectedFiles: File[] = [];
     let selectedFlag: string = "pride";
@@ -54,10 +54,7 @@
 
 <svelte:head>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto&display=swap"
-        rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto&display=swap" rel="stylesheet" />
 </svelte:head>
 
 <main>
@@ -82,7 +79,7 @@
         <CustomSelect
             options={Object.keys(flagColours)
                 .sort()
-                .map((e) => ({
+                .map(e => ({
                     label: capitalise(e),
                     value: e,
                     icon: generateFlag(flagColours[e]),
@@ -103,9 +100,7 @@
             ]}
         />
         <br /><br />
-        <p>
-            Cutout size (how many % of your profile picture will remain visible)
-        </p>
+        <p>Cutout size (how many % of your profile picture will remain visible)</p>
         <Slider bind:value={cutoutSize} />
         <br />
         <p>Overlay opacity</p>
@@ -113,23 +108,9 @@
         <br />
         <h3>Painting modes</h3>
         <div class="multiple-choices">
-            <Switch bind:checked={isGradient}
-                >Gradient <img alt="" src={gradientIcon} class="icon" /></Switch
-            >
-            <Switch bind:checked={resizeInwards}
-                >Resize inwards (fit to cutout size) <img
-                    alt=""
-                    src={resizeInwardsIcon}
-                    class="icon"
-                /></Switch
-            >
-            <Switch bind:checked={rotating}
-                >Animated rotating <img
-                    alt=""
-                    src={rotatingIcon}
-                    class="icon"
-                /></Switch
-            >
+            <Switch bind:checked={isGradient}>Gradient <img alt="" src={gradientIcon} class="icon" /></Switch>
+            <Switch bind:checked={resizeInwards}>Resize inwards (fit to cutout size) <img alt="" src={resizeInwardsIcon} class="icon" /></Switch>
+            <Switch bind:checked={rotating}>Animated rotating <img alt="" src={rotatingIcon} class="icon" /></Switch>
         </div>
     </section>
 
@@ -137,27 +118,15 @@
         <section transition:slide|local>
             <h2>Animation customisation</h2>
             <p>Animation length (seconds)</p>
-            <Slider
-                bind:value={animationLength}
-                min={0.1}
-                max={30}
-                step={0.1}
-            />
+            <Slider bind:value={animationLength} min={0.1} max={30} step={0.1} />
             <br />
-            <Switch bind:checked={isRotatingCounterClockwise}
-                >Counter-clockwise</Switch
-            >
+            <Switch bind:checked={isRotatingCounterClockwise}>Counter-clockwise</Switch>
         </section>
     {/if}
 
     <section>
         <h2>Preview</h2>
-        <Preview
-            options={renderOptions}
-            selectedFile={selectedFiles[0]}
-            {previewCircular}
-            bind:canvas
-        />
+        <Preview options={renderOptions} selectedFile={selectedFiles[0]} {previewCircular} bind:canvas />
         <br /><br />
         <Switch bind:checked={previewCircular}>Circular preview</Switch>
     </section>
@@ -166,8 +135,7 @@
         <h2>Export</h2>
         {#if selectedFiles.length > 0}
             {#if !isRendering}
-                {#if animated}Animated GIFs take quite a long time to process!
-                    (especially if you are on a mobile device)<br /><br />{/if}
+                {#if animated}Animated GIFs take quite a long time to process! (especially if you are on a mobile device)<br /><br />{/if}
                 <Button
                     on:click={() => {
                         isRendering = true;
@@ -178,25 +146,14 @@
                     }}>Download!</Button
                 >
             {:else}
-                Currently rendering your image...<img
-                    src={loadingIcon}
-                    class="icon"
-                    alt=""
-                />
+                Currently rendering your image...<img src={loadingIcon} class="icon" alt="" />
             {/if}
         {:else}
             Exporting is not possible because there is no file selected.
         {/if}
     </section>
 
-    <footer>
-        <img src={appIcon} alt="" />
-        <div>
-            LGBT Profile Picture Overlay Generator
-            <br />by <a href="https://hihiqy1.nl">Qy</a>
-            <br />2022
-        </div>
-    </footer>
+    <Footer />
 </main>
 
 <style>
@@ -212,6 +169,11 @@
         --disabled-color: hsl(0, 0%, 40%);
         --small-element-transition-duration: 0.15s;
         --big-element-transition-duration: 0.3s;
+        --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    :global(html) {
+        scrollbar-color: var(--primary-color) transparent;
     }
 
     :global(h1),
@@ -252,8 +214,7 @@
         margin: 2rem 0;
     }
 
-    section,
-    footer {
+    section {
         flex-grow: 0;
         width: Calc(var(--page-size) + 0.01px); /* because flex-wrap */
         padding: 1.2rem;
@@ -292,23 +253,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem 3rem;
-    }
-
-    footer {
-        margin-top: 2rem;
-        border-top: 1px solid hsl(0, 0%, 40%);
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 1rem;
-        align-items: center;
-    }
-    footer > * {
-        grid-row: 1;
-    }
-    footer > img {
-        width: 7rem;
-        height: 7rem;
-        border-radius: 0.5rem;
     }
 
     @media screen and (max-width: 80rem) {
