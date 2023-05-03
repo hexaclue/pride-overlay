@@ -7,19 +7,27 @@ export function download(selectedFile: File, options: CanvasDrawOptions): Promis
     return new Promise(async (resolve, reject) => {
         let frames: HTMLElement[] = [];
 
-        const selectedImage: HTMLImageElement = await fileToImage(selectedFile);
+        let selectedImage: HTMLImageElement;
+        if (selectedFile) {
+            selectedImage = await fileToImage(selectedFile);
+        }
 
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext("2d");
 
-        canvas.width = selectedImage.width;
-        canvas.height = selectedImage.width;
+        if (selectedFile) {
+            canvas.width = selectedImage.width;
+            canvas.height = selectedImage.width;
+        } else {
+            canvas.width = 512;
+            canvas.height = 512;
+        }
 
         if (options.isRotating) {
             let fps = 30;
 
-            canvas.width = Math.min(selectedImage.width, 256);
-            canvas.height = Math.min(selectedImage.height, 256);
+            canvas.width = Math.min(canvas.width, 256);
+            canvas.height = Math.min(canvas.height, 256);
 
             for (let i = 0; i < fps * options.animationLength; i++) {
                 drawToCanvas(canvas, ctx, selectedImage, options, i / fps);
@@ -38,11 +46,10 @@ export function download(selectedFile: File, options: CanvasDrawOptions): Promis
                 gifHeight: canvas.height,
                 images: frames,
                 interval: 1 / fps,
-                progressCallback: (captureProgress: number) => {
-                    console.log(captureProgress);
-                },
+                // progressCallback: (captureProgress: number) => {
+                //     // console.log(captureProgress);
+                // },
             }, (obj) => {
-                console.log(obj);
                 if (!obj.error) {
                     let image = obj.image;
                     const link = document.createElement('a');
