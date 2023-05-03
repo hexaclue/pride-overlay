@@ -20,6 +20,8 @@
     import RadioRow from "./lib/RadioRow.svelte";
     import { CutoutType } from "./lib/types/cutoutType";
     import Footer from "./lib/Footer.svelte";
+    import Note from "./lib/Note.svelte";
+    import { NoteType } from "./lib/types/noteTypes";
 
     let selectedFiles: File[] = [];
     let selectedFlag: string = "pride";
@@ -133,23 +135,25 @@
 
     <section>
         <h2>Export</h2>
-        {#if selectedFiles.length > 0}
-            {#if !isRendering}
-                {#if animated}Animated GIFs take quite a long time to process! (especially if you are on a mobile device)<br /><br />{/if}
-                <Button
-                    on:click={() => {
-                        isRendering = true;
-                        setTimeout(async () => {
-                            await download(selectedFiles[0], renderOptions);
-                            isRendering = false;
-                        }, 50);
-                    }}>Download!</Button
-                >
-            {:else}
-                Currently rendering your image...<img src={loadingIcon} class="icon" alt="" />
+        {#if !isRendering}
+            {#if !selectedFiles.length}
+                <Note>Note: There is no input file selected. However, you can still export this flag.</Note><br />
             {/if}
+            {#if animated}
+                <Note type={NoteType.WARNING}>Note: Animated GIFs take quite a long time to process! (especially if you are on a mobile device)</Note><br />
+            {/if}
+            <Button
+                on:click={() => {
+                    isRendering = true;
+                    setTimeout(async () => {
+                        await download(selectedFiles[0], renderOptions);
+                        isRendering = false;
+                    }, 50);
+                }}
+                >Download as {#if animated}GIF{:else}PNG{/if}!</Button
+            >
         {:else}
-            Exporting is not possible because there is no file selected.
+            <Note>Currently rendering your image...<img src={loadingIcon} class="icon" alt="" /></Note>
         {/if}
     </section>
 
