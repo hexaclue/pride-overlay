@@ -72,12 +72,17 @@ function drawFlag(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, opti
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
 
+    if (options.rotationOffset % 360 != 0) {
+        ctx.rotate(degToRad(options.rotationOffset % 360));
+    }
+
     if (options.isRotating) {
         ctx.rotate(
             degToRad(
                 (now / options.animationLength) *
                 360 *
                 (options.isRotatingCounterClockwise ? -1 : 1)
+                + options.rotationOffset
             )
         );
     }

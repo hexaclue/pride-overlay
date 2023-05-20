@@ -34,6 +34,7 @@
     let isRotatingCounterClockwise: boolean = false;
     let overlayOpacity: number = 100;
     let cutoutType: CutoutType = CutoutType.CIRCLE;
+    let overlayRotation: number = 0;
 
     let canvas: HTMLCanvasElement;
 
@@ -49,6 +50,7 @@
         isRotatingCounterClockwise: isRotatingCounterClockwise,
         overlayOpacity: overlayOpacity,
         cutoutType: cutoutType,
+        rotationOffset: overlayRotation,
     };
 
     let isRendering: boolean = false;
@@ -107,6 +109,9 @@
         <br />
         <p>Overlay opacity</p>
         <Slider bind:value={overlayOpacity} />
+        <br />
+        <p>Flag rotation offset</p>
+        <Slider bind:value={overlayRotation} min={0} max={360} step={1} />
         <br />
         <h3>Painting modes</h3>
         <div class="multiple-choices">

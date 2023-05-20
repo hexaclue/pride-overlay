@@ -10,4 +10,5 @@ export type CanvasDrawOptions = {
     isRotatingCounterClockwise: boolean;
     overlayOpacity: number;
     cutoutType: CutoutType;
+    rotationOffset: number;
 }
