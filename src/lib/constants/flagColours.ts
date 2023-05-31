@@ -204,5 +204,12 @@ export const flagColours = {
         "#347dde",
         "#6b3fbd",
         "#000000"
+    ],
+    "aroace": [
+        "#e28c00",
+        "#eccd00",
+        "#ffffff",
+        "#62aedc",
+        "#203856"
     ]
 };
