@@ -1,6 +1,6 @@
 # LGBTQ+ Profile Picture Overlay Generator (LPPPOG) (POG)
 <p align="center">
-  <img alt="POG Logo" height="192" src="https://hihiqy1.nl/pride/assets/icon256.png">
+  <img alt="POG Logo" height="192" src="https://pride-pfp.xyz/assets/icon256.png">
 </p>
 
 <h3 align="center">
@@ -12,4 +12,4 @@ Easily turn your profile picture into an LGBTQ+ profile picture!
 <br>
 
 ### Demo
-The site's available [here](https://hihiqy1.nl/pride/).
+The site's available [here](https://pride-pfp.xyz/).
