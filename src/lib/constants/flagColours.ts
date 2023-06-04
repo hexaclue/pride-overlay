@@ -211,5 +211,14 @@ export const flagColours = {
         "#ffffff",
         "#62aedc",
         "#203856"
+    ],
+    "mlm (NEW)": [
+        "#078d70",
+        "#26ceaa",
+        "#98e8c1",
+        "#f1efff",
+        "#7bade2",
+        "#5049cc",
+        "#3d1a78"
     ]
 };
