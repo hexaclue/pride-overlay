@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { slide } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
 
     import Dropzone from "./lib/Dropzone.svelte";
     import FileStats from "./lib/FileStats.svelte";
@@ -22,9 +22,10 @@
     import Footer from "./lib/Footer.svelte";
     import Note from "./lib/Note.svelte";
     import { NoteType } from "./lib/types/noteTypes";
+    import WideButton from "./lib/WideButton.svelte";
 
     let selectedFiles: File[] = [];
-    let selectedFlag: string = "pride";
+    let selectedFlags: string[] = ["pride"];
     let cutoutSize: number = 90;
     let isGradient: boolean = false;
     let resizeInwards: boolean = true;
@@ -43,7 +44,7 @@
     $: renderOptions = {
         cutoutSize: cutoutSize,
         resizeInwards: resizeInwards,
-        selectedColors: flagColours[selectedFlag],
+        selectedColors: selectedFlags.map(e => flagColours[e]),
         isGradient: isGradient,
         isRotating: rotating,
         animationLength: animationLength,
@@ -80,16 +81,36 @@
 
     <section>
         <h2>Flag selection</h2>
-        <CustomSelect
-            options={Object.keys(flagColours)
-                .sort()
-                .map(e => ({
-                    label: capitalise(e),
-                    value: e,
-                    icon: generateFlag(flagColours[e]),
-                }))}
-            bind:selected={selectedFlag}
-        />
+        {#each selectedFlags as _, index}
+            <div class:has-delete-button={index > 0} in:slide|local>
+                <CustomSelect
+                    options={Object.keys(flagColours)
+                        .sort()
+                        .map(e => ({
+                            label: capitalise(e),
+                            value: e,
+                            icon: generateFlag(flagColours[e]),
+                        }))}
+                    bind:selected={selectedFlags[index]}
+                    group={`${index}`}
+                />
+                {#if index > 0}
+                    <Button
+                        on:click={() => {
+                            selectedFlags = selectedFlags.filter((_, i) => i !== index);
+                        }}
+                    >
+                        🗑️
+                    </Button>
+                {/if}
+                <br />
+            </div>
+        {/each}
+        <WideButton
+            on:click={() => {
+                selectedFlags = [...selectedFlags, selectedFlags.at(-1)];
+            }}>Add another</WideButton
+        >
     </section>
 
     <section>
@@ -262,6 +283,13 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem 3rem;
+    }
+
+    .has-delete-button {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
     }
 
     @media screen and (max-width: 80rem) {

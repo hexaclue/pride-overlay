@@ -1,14 +1,17 @@
 <script lang="ts">
     export let option: { icon?: string; label: string; value: string };
     export let mainHovering: boolean = false;
+    export let selection: string;
     export let group: string;
     export let disabled: boolean = true;
 </script>
 
 <div class="option" class:main-hovering={mainHovering}>
-    <input id={option.value} type="radio" name="color" value={option.value} bind:group {disabled} />
+    <input id={`${group}-${option.value}`} type="radio" name={`color-${group}`} bind:group={selection} value={option.value} {disabled} />
+    <!-- svelte-ignore a11y-no-noninteractive-element-to-interactive-role -->
+    <!-- svelte-ignore a11y-role-has-required-aria-props -->
     <label
-        for={option.value}
+        for={`${group}-${option.value}`}
         tabindex="0"
         role="option"
         on:keydown={e => {

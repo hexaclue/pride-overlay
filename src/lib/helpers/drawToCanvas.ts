@@ -91,43 +91,60 @@ function drawFlag(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, opti
 
     ctx.globalAlpha = options.overlayOpacity / 100;
 
-    if (!options.isGradient) {
-        for (let i = 0; i < options.selectedColors.length; i++) {
-            ctx.fillStyle = options.selectedColors[i];
-            ctx.fillRect(
-                -canvas.width / 2,
-                i == 0
-                    ? -canvas.height / 2
-                    : (i * canvas.height) / options.selectedColors.length,
-                canvas.width * 2,
-                ([0, options.selectedColors.length - 1].includes(i)
-                    ? canvas.height / 2
-                    : 0) +
-                canvas.height / options.selectedColors.length
-            );
-        }
-    } else {
-        let gradient = ctx.createLinearGradient(
-            canvas.width / 2,
-            0,
-            canvas.width / 2,
-            canvas.height
-        );
+    for (let j = 0; j < options.selectedColors.length; j++) {
+        let x = j == 0 ? -canvas.width / 2 : canvas.width / options.selectedColors.length * j;
+        let w = canvas.width / options.selectedColors.length + (j == 0 || j == options.selectedColors.length - 1 ? canvas.width / 2 : 0);
 
-        for (let i = 0; i < options.selectedColors.length; i++) {
-            gradient.addColorStop(
-                i / (options.selectedColors.length - 1),
-                options.selectedColors[i]
-            );
-        }
-
-        ctx.fillStyle = gradient;
-        ctx.fillRect(
-            -canvas.width / 2,
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(
+            x,
             -canvas.height / 2,
-            canvas.width * 2,
+            w,
             canvas.height * 2
         );
+        ctx.clip();
+
+        if (!options.isGradient) {
+            for (let i = 0; i < options.selectedColors[j].length; i++) {
+                ctx.fillStyle = options.selectedColors[j][i];
+                ctx.fillRect(
+                    -canvas.width / 2,
+                    i == 0
+                        ? -canvas.height / 2
+                        : (i * canvas.height) / options.selectedColors[j].length,
+                    canvas.width * 2,
+                    ([0, options.selectedColors[j].length - 1].includes(i)
+                        ? canvas.height / 2
+                        : 0) +
+                    canvas.height / options.selectedColors[j].length
+                );
+            }
+        } else {
+            let gradient = ctx.createLinearGradient(
+                canvas.width / 2,
+                0,
+                canvas.width / 2,
+                canvas.height
+            );
+
+            for (let i = 0; i < options.selectedColors[j].length; i++) {
+                gradient.addColorStop(
+                    i / (options.selectedColors[j].length - 1),
+                    options.selectedColors[j][i]
+                );
+            }
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(
+                -canvas.width / 2,
+                -canvas.height / 2,
+                canvas.width * 2,
+                canvas.height * 2
+            );
+        }
+
+        ctx.restore();
     }
 
     ctx.restore();

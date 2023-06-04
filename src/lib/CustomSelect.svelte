@@ -4,6 +4,7 @@
 
     export let options: { icon?: string; label: string; value: string }[] | undefined = null;
     export let selected: string | undefined = options ? (options.length ? options[0].value : null) : null;
+    export let group: string = selected;
 
     let hovering: boolean = false;
     let disablé: boolean = false;
@@ -58,7 +59,7 @@
 >
     <div class="options" bind:this={optionsElement}>
         {#each options as option}
-            <CustomSelectOption {option} bind:group={selected} mainHovering={hovering} disabled={!(hovering && !disablé)} />
+            <CustomSelectOption {option} bind:group bind:selection={selected} mainHovering={hovering} disabled={!(hovering && !disablé)} />
         {/each}
     </div>
 </div>
